@@ -21,3 +21,4 @@ million and 1 million approximately respectively. This is a recurring theme thro
 song using the samples except in a few distnct cases. I will therefore have to determine the songs which do no not follow this relationship in particular to guage if this relationship is fixed 
 or there are excemptions. 
 
+git config --global --list 
