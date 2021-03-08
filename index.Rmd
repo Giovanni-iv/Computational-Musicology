@@ -1,30 +1,36 @@
----
-title: "index.Rmd"
-author: "Giovanni.iv"
-date: "01/03/2021"
-output: html_document
----
+```{r}
+library (devtools)
+library(tidyverse)
+library(spotifyr)
+library(knitr) 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+output: 
+  flexdashboard::flex_dashboard:
+    storyboard: true
+
 ```
+```{r}
+install.packages('spotifyr')
 
-## R Markdown
+devtools::install_github('charlie86/spotifyr')
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Sys.setenv(SPOTIFY_CLIENT_ID = '9a3bb94792fb416eaaf55b08d63c0135')
+Sys.setenv(SPOTIFY_CLIENT_SECRET = '4d7c9421a08a4bad85d52c8b60485724')
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+access_token <- get_spotify_access_token()
 
-```{r cars}
-summary(cars)
+library(spotifyr)
+hhs <- get_playlist_audio_features("", "4E55G0GYK0CuUWZ0IQiaoD")
+jdilla <- get_playlist_audio_features("", "6eQuLy3XkE1ZZDKrV10CIK")
+kanye <- get_playlist_audio_features("", "7Ch9pFecrcS48qlvubVLJO")
+timbaland <- get_playlist_audio_features("", "56GlL98C6BFNZo3wjSNWYb")
+
+library(tidyverse)
+library(knitr)
+
+jdilla %>% 
+    count(key_mode, sort = TRUE) %>% 
+    head(10) %>% 
+    kable()
+
 ```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
