@@ -1,3 +1,0 @@
-load(tidyverse)
-load(spotifyr)
-

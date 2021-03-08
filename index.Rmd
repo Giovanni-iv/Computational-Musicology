@@ -4,10 +4,6 @@ library(tidyverse)
 library(spotifyr)
 library(knitr) 
 
-output: 
-  flexdashboard::flex_dashboard:
-    storyboard: true
-
 ```
 ```{r}
 install.packages('spotifyr')
