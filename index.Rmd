@@ -1,14 +1,19 @@
-```{r}
+---
+title: "Untitled"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: column
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+
+library(flexdashboard)
 library (devtools)
 library(tidyverse)
 library(spotifyr)
-library(knitr) 
-
-```
-```{r}
-install.packages('spotifyr')
-
-devtools::install_github('charlie86/spotifyr')
+library(knitr)
+library(compmus)
 
 Sys.setenv(SPOTIFY_CLIENT_ID = '9a3bb94792fb416eaaf55b08d63c0135')
 Sys.setenv(SPOTIFY_CLIENT_SECRET = '4d7c9421a08a4bad85d52c8b60485724')
@@ -21,12 +26,48 @@ jdilla <- get_playlist_audio_features("", "6eQuLy3XkE1ZZDKrV10CIK")
 kanye <- get_playlist_audio_features("", "7Ch9pFecrcS48qlvubVLJO")
 timbaland <- get_playlist_audio_features("", "56GlL98C6BFNZo3wjSNWYb")
 
-library(tidyverse)
-library(knitr)
 
+```
+
+-----------------------------------------------------------------------
+
+# J Dilla
+
+```{r}
 jdilla %>% 
     count(key_mode, sort = TRUE) %>% 
     head(10) %>% 
     kable()
 
 ```
+
+Column {data-width=350} {.tabset .tabset-fade}
+-----------------------------------------------------------------------
+
+# kanye
+    
+```{r}
+
+kanye %>% 
+    count(key_mode, sort = TRUE) %>% 
+    head(10) %>% 
+    kable()
+
+```
+
+Column {data-width=350} {.tabset .tabset-fade}
+-----------------------------------------------------------------------
+
+# Timbaland 
+    
+```{r}
+
+timbaland %>% 
+    count(key_mode, sort = TRUE) %>% 
+    head(10) %>% 
+    kable()
+
+```
+
+Column {data-width=350} {.tabset .tabset-fade} 
+-----------------------------------------------------------------------
