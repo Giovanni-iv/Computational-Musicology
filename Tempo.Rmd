@@ -1,0 +1,83 @@
+---
+title: "Tempo Histograms"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: column
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+
+library(flexdashboard)
+library (devtools)
+library(tidyverse)
+library(spotifyr)
+library(knitr)
+library(compmus)
+library(dplyr)
+library(plotly)
+library(ggplot2)
+
+Sys.setenv(SPOTIFY_CLIENT_ID = '9a3bb94792fb416eaaf55b08d63c0135')
+Sys.setenv(SPOTIFY_CLIENT_SECRET = '4d7c9421a08a4bad85d52c8b60485724')
+
+access_token <- get_spotify_access_token()
+
+kanye <- get_playlist_audio_features("", "7Ch9pFecrcS48qlvubVLJO")
+kanye2 <- get_artist_audio_features('Kanye West')
+hhs <- get_playlist_audio_features("", "4E55G0GYK0CuUWZ0IQiaoD")
+jdilla <- get_playlist_audio_features("", "6eQuLy3XkE1ZZDKrV10CIK")
+kanye <- get_playlist_audio_features("", "7Ch9pFecrcS48qlvubVLJO")
+timbaland <- get_playlist_audio_features("", "56GlL98C6BFNZo3wjSNWYb")
+
+```{r}
+
+gotawoman <- get_tidy_audio_analysis("2xar08Fq5xra2KKZs5Bw9j")
+golddigger <- get_tidy_audio_analysis("3QHPHLAkYV5cQBUYs6rowx")
+
+```
+
+-----------------------------------------------------------------------
+
+# Kanye West Tempogram-Comparison of the original song and the sampled song 
+
+#Ray Charles - I got a woman
+
+```{r}
+
+gotawoman %>%
+  tempogram(window_size = 8, hop_size = 1, cyclic = FALSE) %>%
+  ggplot(aes(x = time, y = bpm, fill = power)) +
+  geom_raster() +
+  scale_fill_viridis_c(guide = "none") +
+  labs(x = "Time (s)", y = "Tempo (BPM)") +
+  theme_classic()
+```
+
+Column {data-width=350} {.tabset .tabset-fade}
+-----------------------------------------------------------------------
+
+#Kanye West - Gold Digger ft. Jamie Foxx 
+
+```{r}
+
+golddigger %>%
+  tempogram(window_size = 8, hop_size = 1, cyclic = TRUE) %>%
+  ggplot(aes(x = time, y = bpm, fill = power)) +
+  geom_raster() +
+  scale_fill_viridis_c(guide = "none") +
+  labs(x = "Time (s)", y = "Tempo (BPM)") +
+  theme_classic()
+```
+
+Column {data-width=350} {.tabset .tabset-fade}
+-----------------------------------------------------------------------
+#Frequency of Tempo in songs by Knaye West and the samples he has used
+```{r}
+kanyetempo <- (kanye$tempo) 
+
+hist(kanyetempo)
+
+```
+
+-----------------------------------------------------------------------
